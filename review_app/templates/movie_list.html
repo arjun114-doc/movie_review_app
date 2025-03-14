@@ -85,8 +85,8 @@
           <!-- Add Movie Button -->
           <div class="flex w-4/5 sm:w-2/5 mx-auto mt-2">
             <a
-              href="add-movie.html"
-              class="bg-pgreen flex justify-center text-white font-medium gap-3 p-2 rounded-md w-full"
+              href="{% url 'add_movie' %}"
+              class=" btn bg-pgreen flex justify-center text-white font-medium gap-3 p-2 rounded-md w-full"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +107,7 @@
           </div>
           <hr class="border-1 border-white/10 my-4" />
           <!-- Profile -->
-          <div class="w-full flex justify-between items-center">
+           {% comment %} <div class="w-full flex justify-between items-center">
             <a href="profile.html" class="flex flex-row items-center gap-5">
               <img
                 src="images/user.jpg"
@@ -131,7 +131,7 @@
                   fill-rule="evenodd"
                   d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z"
                   clip-rule="evenodd"
-                />
+                /> {% endcomment %}
               </svg>
             </a>
           </div>
@@ -177,7 +177,7 @@
           <a
             class="bg-pgreen text-white font-medium flex gap-3 py-2 px-5 rounded-md transition-all ease-linear duration-300 hover:scale-[98%]"
             id="add-movie"
-            href="add-movie.html"
+            href="{% url 'add_movie' %}"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -315,8 +315,11 @@
         </div>
       </div>
       <!-- Right Side -->
+      
+      
       <div class="rounded-sm w-full grid grid-cols-1 md:grid-cols-3 gap-2">
         <!-- Movie Card -->
+        {% for movie in movies %}
         <div
           class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
         >
@@ -341,52 +344,18 @@
               </svg>
             </p>
           </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
+          
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
+          
+         
+         
           <!-- Image -->
           <div
             class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
+            style="background-image: url(./static/images/{{ movie.image }})"
           ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
+          <p class="font-medium text-sm text-white">{{movie.movie_name}}</p>
+          <p class="text-xs font-bold text-pgreen">{{movie.year}}</p>
           <a
             href="review.html"
             class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
@@ -394,358 +363,18 @@
             Review
           </a>
         </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
+        
+        {% endfor %}
+         
+          <!-- Image -->
+          
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
         </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
-        <!-- Movie Card -->
-        <div
-          class="flex relative flex-col gap-2 rounded-md bg-pLightPurple w-full p-2 h-[260px] group transition-all ease-in-out duration-500 hover:scale-[102%] hover:shadow-md"
-        >
-          <!-- Rating -->
-          <div
-            class="absolute bg-pgreen z-10 top-3 left-3 p-1 text-xs font-semibold text-white rounded-full transition-all ease-in-out duration-500 group-hover:opacity-100 lg:opacity-50 w-fit"
-          >
-            <p class="flex gap-1 items-center">
-              5.9
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-4 h-4"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </p>
-          </div>
-          <!-- Image -->
-          <div
-            class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./images/bg_image_1.jpg)"
-          ></div>
-          <p class="font-medium text-sm text-white">Dead Reckoning - Part 1</p>
-          <p class="text-xs font-bold text-pgreen">2023</p>
-          <a
-            href="review.html"
-            class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
-          >
-            Review
-          </a>
-        </div>
+        
       </div>
+      
     </main>
     <script src="{% static 'js/scripts.js' %}"></script>
   </body>

@@ -12,6 +12,15 @@ class Movie_form(forms.ModelForm):
     class Meta:
         model=Movie_model
         fields="__all__"
+        widgets = {
+        #     'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter movie name'}),
+        #     'language': forms.Select(attrs={'class': 'form-control'}),
+        #     'director': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Director Name'}),
+        #     'genre': forms.Select(attrs={'class': 'form-control'}),
+        #     'year': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year'}),
+        #     'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Movie description'}),
+            # 'image': forms.ImageField()
+        }
 
 class Review_form(forms.ModelForm):
     class Meta:

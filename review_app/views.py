@@ -19,15 +19,21 @@ class Review_user(View):
 
 class Movie_view(View):
     def get(self,request):
+        genres=Movie_model.GENRE_CHOICES
+        languages=Movie_model.LANGUAGE_CHOICES
         form=Movie_form
-        return render(request,"movie_form.html",{"form":form})
+        return render(request,"movie_form.html",{"form":form,"genres":genres,"languages":languages})
 
     def post(self,request):
-        form=Movie_form(request.POST)
+        form=Movie_form(request.POST,request.FILES)
         if form.is_valid():
+            print(form.cleaned_data)
             Movie_model.objects.create(**form.cleaned_data)
             # return HttpResponse("movie added successfullyy")
             return redirect('list_movies')
+        else:
+            print(form.cleaned_data)
+            return HttpResponse("not valid")
 
 class Review_view(View):
     def get(self,request):
