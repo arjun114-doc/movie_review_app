@@ -13,7 +13,7 @@
       <nav class="flex flex-col w-full bg-pLightPurple shadow-sm p-3 lg:hidden">
         <!-- Top -->
         <div class="flex flex-row justify-between items-center" id="top">
-          <a href="/" class="font-bold text-2xl whitespace-nowrap"> M Review</a>
+          <a href="/" class="font-bold text-2xl whitespace-nowrap"> Movie  Review</a>
 
           <!-- Open and Close Mobile Nav -->
           <div class="cursor-pointer p-2" id="toggle-mobile-nav">
@@ -107,11 +107,11 @@
           </div>
           <hr class="border-1 border-white/10 my-4" />
           <!-- Profile -->
-           {% comment %} <div class="w-full flex justify-between items-center">
-            <a href="profile.html" class="flex flex-row items-center gap-5">
+          <div class="w-full flex justify-between items-center">
+            <a href="{% url 'profile'%}" class="flex flex-row items-center gap-5">
               <img
-                src="images/user.jpg"
-                alt="profile picture"
+                src="https://e7.pngegg.com/pngimages/442/477/png-clipart-computer-icons-user-profile-avatar-profile-heroes-profile.png"
+                alt="p"
                 class="w-12 h-12 rounded-full"
               />
               <div class="">
@@ -131,7 +131,7 @@
                   fill-rule="evenodd"
                   d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z"
                   clip-rule="evenodd"
-                /> {% endcomment %}
+                /> 
               </svg>
             </a>
           </div>
@@ -193,10 +193,15 @@
             </svg>
             Add Movie
           </a>
+
+          
+
+
+
           <!-- Open and Close Profile popup -->
           <div class="relative">
             <img
-              src="images/user.jpg"
+              src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
               class="w-12 h-12 rounded-full cursor-pointer"
               alt="profile picture"
               onclick="toggleProfilePopUp()"
@@ -206,15 +211,15 @@
               id="profile-popup"
             >
               <a
-                href="profile.html"
+                href="{% url 'profile' %}"
                 class="flex flex-col p-2 rounded-lg hover:bg-pgray/50"
               >
-                <p class="font-bold text-pgreen text-lg">Codebase</p>
-                <p class="text-pgreen/50">codebase@mail.com</p>
+                <p class="font-bold text-pgreen text-lg">{{ request.user.username}}</p>
+                <p class="text-pgreen/50">{{request.user.email}}</p>
               </a>
               <hr />
               <a
-                href="login.html"
+                href="{% url 'signout' %}"
                 class="flex justify-between font-bold text-red-400 p-2 rounded-lg hover:bg-pgray"
                 >Logout
                 <svg
@@ -239,7 +244,7 @@
       <div
         class="hidden lg:flex flex-col gap-2 bg-pLightPurple shadow-md p-5 rounded-lg max-w-xs w-full max-h-[350px]"
       >
-        <p class="text-white/80">Sort By</p>
+        {% comment %} <p class="text-white/80">Sort By</p>
         <!-- Latest and Most Popular -->
         <div class="flex flex-col gap-3">
           <a
@@ -283,7 +288,7 @@
               Most Popular
             </span>
           </a>
-        </div>
+        </div> {% endcomment %}
         <!-- Categories -->
         <p class="underline text-white/80 mt-7">Categories</p>
         <div class="flex flex-wrap gap-2">
@@ -297,21 +302,14 @@
             href=""
             >Comedy</a
           > {% endcomment %}
+           {% for key, value in genres %}
           <a
             class="py-2 bg-[#bebada] rounded-full text-purple-700 px-4 transition-all duration-300 ease-in hover:scale-[95%]"
-            href=""
-            >Sci-Fi</a
+            href="{% url 'filter' value %}"
+            >{{key}}</a
           >
-          {% comment %} <a
-            class="py-2 bg-[#fb8072] rounded-full text-white px-4 transition-all duration-300 ease-in hover:scale-[95%]"
-            href=""
-            >Adventure</a
-          >
-          <a
-            class="py-2 bg-[#80b1d3] rounded-full text-pgray px-4 transition-all duration-300 ease-in hover:scale-[95%]"
-            href=""
-            >Drama</a
-          > {% endcomment %}
+          {% endfor %}
+           
         </div>
       </div>
       <!-- Right Side -->
@@ -352,12 +350,14 @@
           <!-- Image -->
           <div
             class="h-3/5 w-full bg-center bg-no-repeat bg-cover rounded-lg lg:grayscale group-hover:grayscale-0 transition-all ease-in duration-500"
-            style="background-image: url(./static/images/{{ movie.image }})"
+            style="background-image: url(/static/images/{{movie.image}})"
+           
+             
           ></div>
           <p class="font-medium text-sm text-white">{{movie.movie_name}}</p>
           <p class="text-xs font-bold text-pgreen">{{movie.year}}</p>
           <a
-            href="review.html"
+            href="{% url 'add_review' movie.id %}"
             class="bg-gradient-to-br from-orangeOne to-orangeTwo text-center text-white w-full p-1 font-medium rounded-full"
           >
             Review
@@ -376,7 +376,7 @@
       </div>
       
     </main>
-    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>
 

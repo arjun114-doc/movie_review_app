@@ -64,8 +64,8 @@
                 class="w-12 h-12 rounded-full"
               />
               <div class="">
-                <p class="font-bold">Codebase</p>
-                <p class="opacity-70">codebase@mail.com</p>
+                <p class="font-bold">{{request.user.username}}</p>
+                <p class="opacity-70">{{request.user.email}}</p>
               </div>
             </a>
             <!-- Logout -->
@@ -109,8 +109,8 @@
                 href="profile.html"
                 class="flex flex-col p-2 rounded-lg hover:bg-pgray/50"
               >
-                <p class="font-bold text-pgreen text-lg">Codebase</p>
-                <p class="text-pgreen/50">codebase@mail.com</p>
+                <p class="font-bold text-pgreen text-lg">{{request.user.username}}</p>
+                <p class="text-pgreen/50">{{request.user.email}}</p>
               </a>
               <hr />
               <a

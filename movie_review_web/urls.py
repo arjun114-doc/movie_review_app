@@ -23,10 +23,23 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("reviewer/",views.Review_user.as_view(),name="reviewer"),
+    
     path("add_movie/",views.Movie_view.as_view(),name="add_movie"),
-    path("review/",views.Review_view.as_view(),name="add_review"),
+    path("review/<int:pk>",views.Review_view.as_view(),name="add_review"),
+    path("login/",views.Signin.as_view(),name="login"),
+    
+    path('filter/<str:cata>',views.Filter_movie.as_view(),name='filter'),
+    path("",views.Review_user.as_view(),name="reviewer"),
+    path("movie/",views.Movie_list.as_view(),name="list_movies"),
+    path("profile/",views.Profiledetail.as_view(),name="profile"),
+    path("delete_review/<int:pk>",views.Delete_comment.as_view(),name="commentdel"),
+    path("signout/",views.Signout.as_view(),name="signout"),
+    
+    
+    
+    
     path("",include("review_app.urls"))
+    
     
 ] 
 
